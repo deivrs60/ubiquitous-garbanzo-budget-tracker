@@ -23,7 +23,7 @@ self.addEventListener('install', function (e) {
             return cache.addAll(FILES_TO_CACHE)
         })
     )
-})
+});
 
 self.addEventListener('activate', function (e) {
     e.waitUntil( 
@@ -44,3 +44,22 @@ self.addEventListener('activate', function (e) {
         })   
     );
 });
+
+self.addEventListener('fetch', function (e) {
+    console.log('fetch request : ' + e.request.url)
+    e.respondWith (
+        caches.match(e.request).then(function (request) {
+            if(request) {
+                console.log('responding with cache : ' + e.request.url)
+                return request
+            } else {
+                console.log('file is not cached, fetching : ' + e.request.url)
+                return fetch(e.request)
+            }
+            // You can omit if/else for console.log & put one line below like this too
+            // return request || fetch (e.request)
+
+            // I'm choosing to keeping the console.log version because I feel like it's nice for the console.log to tell me what's going on. I like knowing stuff!
+        })
+    )
+})
