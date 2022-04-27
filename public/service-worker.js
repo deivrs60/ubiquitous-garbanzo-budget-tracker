@@ -8,7 +8,7 @@ const FILES_TO_CACHE = [
     "./js/idb.js",
     "./js/index.js",
     // Not sure if we add this one as well? Not the same as in the module
-    "/manifest.json"
+    "./manifest.json"
 
     // icons in assets not included because of the browser cache limit!
     // they're still loved though <3
